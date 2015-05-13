@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main_status">SpeedLimitADAS</string>
+    <string name="kmh">km/h</string>
+    <string name="avgspeed">Avg. Speed</string>
+    <string name="km">km</string>
+    <string name="distance">Distance</string>
+    <string name="statistics">statistics</string>
 </resources>
