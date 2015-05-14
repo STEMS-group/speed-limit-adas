@@ -169,5 +169,6 @@ public class MainStatusActivity extends ActionBarActivity {
 
     private void resetCommunication() {
         Log.v("adas", "I should be resetting the communication");
+        new CommunicationTask().execute();
     }
 }
