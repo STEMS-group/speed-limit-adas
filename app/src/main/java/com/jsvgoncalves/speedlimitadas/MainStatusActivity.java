@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jsvgoncalves.speedlimitadas.utils.JSONHelper;
@@ -27,6 +29,8 @@ import java.net.Socket;
 
 
 public class MainStatusActivity extends ActionBarActivity {
+
+    private String currentSpeedLimit = "";
 
     /**
      * Broadcast receiver for connectivity status update.
@@ -103,17 +107,45 @@ public class MainStatusActivity extends ActionBarActivity {
     public void positionUpdated(String str) {
         // Create the JSON object and parse the string.
         JSONObject json = JSONHelper.string2JSON(str);
-        TextView tSpeedLimit = (TextView) findViewById(R.id.tv_currentSpeedLimit);
-        tSpeedLimit.setText(str + " km/h");
-        // Get latitude and longitude values.
-        // String lat = JSONHelper.getValue(json, "latitude");
-        // String lon = JSONHelper.getValue(json, "longitude");
+        Log.v("adas", "You I got it");
+        Log.v("adas", str);
+        // Get values from JSON
+        String speedLimit = JSONHelper.getValue(json, "speedLimit");
+        String avgLaneSpeed = JSONHelper.getValue(json, "avgLaneSpeed");
+        String currentSpeed = JSONHelper.getValue(json, "currentSpeed");
+        Log.v("adas", "It is : " + speedLimit);
 
-        // Set the new device location.
-        // setMockLocation(lat, lon);
+        if(!speedLimit.equals(currentSpeedLimit)) {
+            updateSpeedLimit(speedLimit);
+        }
 
-        // TODO: Set the other parameters such as speed limit.
+        TextView tAvgLaneSpeed = (TextView) findViewById(R.id.tv_avglanespeed);
+        tAvgLaneSpeed.setText(avgLaneSpeed + " km/h");
+
+        TextView tCurrentSpeed = (TextView) findViewById(R.id.tv_currentSpeed);
+        tCurrentSpeed.setText(currentSpeed + " km/h");
+
+        // TODO: Set the other parameters such as speed limit mipmap.
         // setSpeedLimit(speedLimit);
+    }
+
+    private void updateSpeedLimit(String speedLimit) {
+        TextView tSpeedLimit = (TextView) findViewById(R.id.tv_currentSpeedLimit);
+        tSpeedLimit.setText(speedLimit + " km/h");
+
+        ImageView iSpeedLimit = (ImageView) findViewById(R.id.iv_speedLimit);
+        if(speedLimit.equals("50")) {
+            iSpeedLimit.setImageResource(R.mipmap.speed50);
+        } else if(speedLimit.equals("90")) {
+            iSpeedLimit.setImageResource(R.mipmap.speed90);
+        } else if(speedLimit.equals("100")) {
+            iSpeedLimit.setImageResource(R.mipmap.speed100);
+        } else if(speedLimit.equals("120")) {
+            iSpeedLimit.setImageResource(R.mipmap.speed120);
+        } else {
+            iSpeedLimit.setImageResource(R.mipmap.speed50);
+        }
+
     }
 
     /**

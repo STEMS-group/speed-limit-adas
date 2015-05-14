@@ -98,11 +98,13 @@
             android:text="@string/kmh"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_speedLimit"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:antialias="true"
+            android:dither="false"
             android:layout_gravity="center_horizontal"
-            android:paddingTop="70dp"
-            android:src="@mipmap/speed_50"
+            android:src="@mipmap/speed50"
             />
 
 
