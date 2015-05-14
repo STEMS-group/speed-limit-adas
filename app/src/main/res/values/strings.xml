@@ -9,4 +9,11 @@
     <string name="km">km</string>
     <string name="distance">Distance</string>
     <string name="statistics">statistics</string>
+    <string name="properties">Properties</string>
+    <string name="ip">IP</string>
+    <string name="tmpip">127.0.0.1</string>
+    <string name="start">Start</string>
+    <string name="status">Network Status</string>
+    <string name="checking">Checking...</string>
+    <string name="nonetwork">No network available.. Try again later.</string>
 </resources>

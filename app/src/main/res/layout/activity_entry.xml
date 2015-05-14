@@ -1,11 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".EntryActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EntryActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!-- Left Panel -->
+    <LinearLayout android:layout_width="250dp"
+        android:layout_height="fill_parent"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:orientation="vertical"
+        android:background="@color/panel_color">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="20dp"
+            android:text="@string/properties"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="@string/status"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/networkStatusTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:text="@string/checking"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="@string/ip"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/ipTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:text="@string/tmpip"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"/>
+    </LinearLayout>
 
-</RelativeLayout>
+    <!-- Right Panel -->
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="0dp"
+        android:orientation="vertical">
+        <Button
+            android:layout_gravity="center_horizontal"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="300dp"
+            android:text="@string/start"
+            android:onClick="startClicked"/>
+    </LinearLayout>
+
+</LinearLayout>

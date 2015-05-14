@@ -1,13 +1,36 @@
 package com.jsvgoncalves.speedlimitadas;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.jsvgoncalves.speedlimitadas.utils.NetworkUtils;
 
 
 public class EntryActivity extends ActionBarActivity {
+
+    /**
+     * Broadcast receiver for connectivity status update.
+     */
+    BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+            Log.w("adas", "Network Type Changed");
+            updateStatusBar();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +38,43 @@ public class EntryActivity extends ActionBarActivity {
         setContentView(R.layout.activity_entry);
 
         // Check things and then start main
-        startMainActivity();
+        updateStatusBar();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkStateReceiver, filter);
+    }
+
+    /**
+     * Check the network status and updates the sidebar.
+     * @return boolean with the network status
+     */
+    private boolean updateStatusBar() {
+
+        // Get the network status
+        boolean networkStatus = NetworkUtils.checkNetwork(getApplicationContext());
+
+        // Update TextViews
+        TextView tNetStatus = (TextView) findViewById(R.id.networkStatusTextView);
+        TextView tIP = (TextView) findViewById(R.id.ipTextView);
+        if(networkStatus) {
+            tIP.setText(NetworkUtils.getIPAddress(true));
+            tNetStatus.setText("Connected");
+            tNetStatus.setTextColor(getResources().getColor(R.color.opaque_green));
+        } else {
+            tIP.setText(R.string.tmpip);
+            tNetStatus.setText("Not Connected");
+            tNetStatus.setTextColor(getResources().getColor(R.color.opaque_red));
+        }
+
+        return networkStatus;
+    }
+
+    public void startClicked(View view) {
+        // Kabloey
+        if(updateStatusBar()) {
+            startMainActivity();
+        } else {
+            Toast.makeText(this, getString(R.string.nonetwork), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void startMainActivity() {
@@ -45,5 +104,12 @@ public class EntryActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        unregisterReceiver(networkStateReceiver);
     }
 }
