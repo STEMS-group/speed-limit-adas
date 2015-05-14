@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -58,11 +59,11 @@ public class EntryActivity extends ActionBarActivity {
         if(networkStatus) {
             tIP.setText(NetworkUtils.getIPAddress(true));
             tNetStatus.setText("Connected");
-            tNetStatus.setTextColor(getResources().getColor(R.color.opaque_green));
+            tNetStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
         } else {
             tIP.setText(R.string.tmpip);
             tNetStatus.setText("Not Connected");
-            tNetStatus.setTextColor(getResources().getColor(R.color.opaque_red));
+            tNetStatus.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         }
 
         return networkStatus;

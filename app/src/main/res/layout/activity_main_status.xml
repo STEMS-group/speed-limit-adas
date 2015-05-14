@@ -17,9 +17,9 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingTop="20dp"
-            android:text="@string/statistics"
+            android:text="@string/status"
             android:textColor="@android:color/white"
-            android:textSize="40sp"
+            android:textSize="25sp"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="fill_parent"
@@ -27,31 +27,12 @@
             android:gravity="left"
             android:paddingTop="20dp"
             android:paddingLeft="10dp"
-            android:text="@string/distance"
+            android:text="@string/speedLimit"
             android:textColor="@android:color/white"
-            android:textSize="30sp"/>
-        <TextView
-            android:id="@+id/distance"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:paddingTop="10dp"
-            android:paddingLeft="20dp"
-            android:text="@string/km"
-            android:textColor="@android:color/white"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold"/>
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:paddingTop="20dp"
-            android:paddingLeft="10dp"
-            android:text="@string/avgspeed"
-            android:textColor="@android:color/white"
-            android:textSize="30sp"/>
-        <TextView
-            android:id="@+id/avgspeed"
+            android:id="@+id/tv_currentSpeedLimit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
@@ -59,8 +40,47 @@
             android:paddingLeft="20dp"
             android:text="@string/kmh"
             android:textColor="@android:color/white"
-            android:textSize="30sp"
+            android:textSize="25sp"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="@string/avglanespeed"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
             android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_avglanespeed"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:text="@string/kmh"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="@string/networkstatus"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_networkStatus2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:text="@string/connected"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="25sp"/>
     </LinearLayout>
 
     <!-- Right Panel -->
@@ -69,7 +89,7 @@
         android:paddingTop="0dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/currentSpeedTextView"
+            android:id="@+id/tv_currentSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="25dp"

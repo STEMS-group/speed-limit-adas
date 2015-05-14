@@ -18,7 +18,7 @@
             android:paddingTop="20dp"
             android:text="@string/properties"
             android:textColor="@android:color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="fill_parent"
@@ -26,7 +26,7 @@
             android:gravity="left"
             android:paddingTop="20dp"
             android:paddingLeft="10dp"
-            android:text="@string/status"
+            android:text="@string/networkstatus"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:textStyle="bold"/>
