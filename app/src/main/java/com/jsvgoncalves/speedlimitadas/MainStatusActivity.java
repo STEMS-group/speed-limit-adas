@@ -87,10 +87,11 @@ public class MainStatusActivity extends ActionBarActivity {
      */
     @Override
     public void onBackPressed() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        super.onBackPressed();
+        /* Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startMain);
+        startActivity(startMain); */
     }
 
     public void updateNetworkStatus() {
@@ -137,8 +138,11 @@ public class MainStatusActivity extends ActionBarActivity {
         }
 
         TextView tAvgLaneSpeed = (TextView) findViewById(R.id.tv_avglanespeed);
+        Log.v("adas", "Textview text:  " + tAvgLaneSpeed.getText());
         tAvgLaneSpeed.setText(avgLaneSpeed + " km/h");
-        Log.w("adas", "Updated avg lane speed to " + avgLaneSpeed);
+        Log.v("adas", "Textview text:  " + tAvgLaneSpeed.getText());
+        Log.v("adas", "Updated avg lane speed to " + avgLaneSpeed);
+
         TextView tCurrentSpeed = (TextView) findViewById(R.id.tv_currentSpeed);
         tCurrentSpeed.setText(currentSpeed + " km/h");
 
