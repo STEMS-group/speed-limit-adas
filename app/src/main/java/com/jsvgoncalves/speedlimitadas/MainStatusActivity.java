@@ -31,6 +31,7 @@ import java.net.Socket;
 public class MainStatusActivity extends ActionBarActivity {
 
     private String currentSpeedLimit = "";
+    private CommunicationTask comm;
 
     /**
      * Broadcast receiver for connectivity status update.
@@ -54,7 +55,8 @@ public class MainStatusActivity extends ActionBarActivity {
         registerReceiver(networkStateReceiver, filter);
 
         // Start the socket communication
-        new CommunicationTask().execute();
+        comm = new CommunicationTask();
+        comm.execute();
     }
 
     @Override
@@ -79,6 +81,18 @@ public class MainStatusActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Sends the user back to the launcher homescreen
+     * without closing the app.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
+
     public void updateNetworkStatus() {
         // Get the network status
         boolean networkStatus = NetworkUtils.checkNetwork(getApplicationContext());
@@ -98,6 +112,7 @@ public class MainStatusActivity extends ActionBarActivity {
         super.onDestroy();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         unregisterReceiver(networkStateReceiver);
+        comm.onPostExecute("onDestroy");
     }
 
     /**
@@ -107,13 +122,15 @@ public class MainStatusActivity extends ActionBarActivity {
     public void positionUpdated(String str) {
         // Create the JSON object and parse the string.
         JSONObject json = JSONHelper.string2JSON(str);
-        Log.v("adas", "You I got it");
-        Log.v("adas", str);
+        Log.w("adas", "You I got it");
+        Log.w("adas", str);
         // Get values from JSON
         String speedLimit = JSONHelper.getValue(json, "speedLimit");
         String avgLaneSpeed = JSONHelper.getValue(json, "avgLaneSpeed");
         String currentSpeed = JSONHelper.getValue(json, "currentSpeed");
-        Log.v("adas", "It is : " + speedLimit);
+        Log.w("adas", "It is : " + speedLimit);
+        Log.w("adas", "It is : " + avgLaneSpeed);
+        Log.w("adas", "It is : " + currentSpeed);
 
         if(!speedLimit.equals(currentSpeedLimit)) {
             updateSpeedLimit(speedLimit);
@@ -121,7 +138,7 @@ public class MainStatusActivity extends ActionBarActivity {
 
         TextView tAvgLaneSpeed = (TextView) findViewById(R.id.tv_avglanespeed);
         tAvgLaneSpeed.setText(avgLaneSpeed + " km/h");
-
+        Log.w("adas", "Updated avg lane speed to " + avgLaneSpeed);
         TextView tCurrentSpeed = (TextView) findViewById(R.id.tv_currentSpeed);
         tCurrentSpeed.setText(currentSpeed + " km/h");
 
@@ -151,7 +168,7 @@ public class MainStatusActivity extends ActionBarActivity {
     /**
      * AssyncTask that handles the socket communication.
      * Calls positionUpdated() when a new string of data is received.
-     * @author João
+     * @author Joao
      *
      */
     class CommunicationTask extends AsyncTask<String, String, String> {
@@ -164,15 +181,15 @@ public class MainStatusActivity extends ActionBarActivity {
             try {
                 socket = new ServerSocket(5173);
                 Socket clientSocket = socket.accept();
-                PrintWriter out =
-                        new PrintWriter(clientSocket.getOutputStream(), true);
+                //PrintWriter out =
+                //        new PrintWriter(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(clientSocket.getInputStream()));
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
                     publishProgress(inputLine);
                     Log.w("adas", inputLine);
-                    out.println("#Received: " + inputLine + " - Nexus 7");
+                    // out.println("#Received: " + inputLine + " - Nexus 7");
                 }
                 return "na";
             } catch (Exception e) {
@@ -184,6 +201,7 @@ public class MainStatusActivity extends ActionBarActivity {
          * Used to update the position instead of the progress.
          */
         protected void onProgressUpdate(String... msg) {
+            Log.w("adas", "Sending Position update to the app");
             positionUpdated(msg[0]);
         }
 
@@ -200,7 +218,7 @@ public class MainStatusActivity extends ActionBarActivity {
     }
 
     private void resetCommunication() {
-        Log.v("adas", "I should be resetting the communication");
+        Log.w("adas", "I should be resetting the communication");
         new CommunicationTask().execute();
     }
 }

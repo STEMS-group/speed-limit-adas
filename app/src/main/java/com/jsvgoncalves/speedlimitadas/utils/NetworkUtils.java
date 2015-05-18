@@ -1,7 +1,7 @@
 package com.jsvgoncalves.speedlimitadas.utils;
 
 /**
- * Created by João on 013 13 5.
+ * Created by Joao on 013 13 5.
  */
 
 import android.content.Context;
